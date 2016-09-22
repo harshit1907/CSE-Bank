@@ -1,0 +1,72 @@
+user
+First Name
+Last Name
+username
+userRole
+phone number
+email
+address
+SSN
+dob
+password
+userStatus
+loginAttempt
+securityQuestion
+securityAnswer
+OrganizationName
+
+KYCRequest
+username
+userField
+fieldValue
+status
+
+
+account
+account no. 
+account type
+username
+open date
+balance
+account status-open, closed, blocked
+
+
+transaction
+transaction id
+tansactionDescription
+trans_status---Approved, Rejected, Pending
+sourceAct no
+destinationAcno
+transactionOwner
+transactionTimesatmp
+AprrovedBy
+transactionAmount
+comment
+transactionType-critical, non-critical=1000
+transactionResult --ok, err
+
+
+AccountLog
+account number
+transactionid
+accountbalance
+
+credit
+creditAccountNo.
+creditLimit
+
+
+session
+username
+sessionKey
+sessionStart
+sessionENd
+sessionRequest
+sessionTimeout-yes or no
+sessionOTP
+
+Devices
+username
+ip address
+
+
