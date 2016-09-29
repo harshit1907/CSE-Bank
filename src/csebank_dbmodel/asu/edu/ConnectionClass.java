@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,44 +68,50 @@ public class ConnectionClass {
 		
 	}
 	
+	public PreparedStatement makePreparedStatemntWithValues(PreparedStatement preparedStatement,HashMap<String,String> queryParameterValues) throws ParseException, SQLException
+	{
+		Set<String> parameterNameSet=queryParameterValues.keySet();
+		Iterator<String> iterator=parameterNameSet.iterator();
+		int i=1;
+		while(iterator.hasNext())
+		{
+			String parameterName=iterator.next();
+			String parameterValue=queryParameterValues.get(parameterName);
+			if(encyptionParamters.contains(parameterName))
+				parameterValue=Encryption.encrypt(parameterValue);
+			if(parameterMapping.get(parameterName).equalsIgnoreCase("STRING"))
+			preparedStatement.setString(i,parameterValue );
+			
+
+			if(parameterMapping.get(parameterName).equalsIgnoreCase("INTEGER"))
+			preparedStatement.setInt(i, Integer.parseInt(parameterValue));
+			
+
+			if(parameterMapping.get(parameterName).equalsIgnoreCase("TIMESTAMP"))
+			{
+				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+				Date date=simpleDateFormat.parse(parameterValue);
+				preparedStatement.setTimestamp(i,new Timestamp(date.getTime()));
+			}
+			
+			if(parameterMapping.get(parameterName).equalsIgnoreCase("DATE"))
+			{
+				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+				Date date=simpleDateFormat.parse(parameterValue);
+				preparedStatement.setDate(i,new java.sql.Date(date.getTime()));
+				}	
+			i++;
+	}
+		return preparedStatement;
+	}
+	
 	public boolean executeUpdateWithSQLQuery(String sqlQuery, HashMap<String,String> queryParameterValues){
 		boolean result=false;
 		try{
 			preparedStatement=connection.prepareStatement(sqlQuery);
 			if(queryParameterValues!=null)
 			{
-				Set<String> parameterNameSet=queryParameterValues.keySet();
-				Iterator<String> iterator=parameterNameSet.iterator();
-				int i=1;
-				while(iterator.hasNext())
-				{
-					String parameterName=iterator.next();
-					String parameterValue=queryParameterValues.get(parameterName);
-					if(encyptionParamters.contains(parameterName))
-						parameterValue=Encryption.encrypt(parameterValue);
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("STRING"))
-					preparedStatement.setString(i,parameterValue );
-					
-
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("INTEGER"))
-					preparedStatement.setInt(i, Integer.parseInt(parameterValue));
-					
-
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("TIMESTAMP"))
-					{
-						SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-						Date date=simpleDateFormat.parse(parameterValue);
-						preparedStatement.setTimestamp(i,new Timestamp(date.getTime()));
-					}
-					
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("DATE"))
-					{
-						SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-						Date date=simpleDateFormat.parse(parameterValue);
-						preparedStatement.setDate(i,new java.sql.Date(date.getTime()));
-						}	
-					i++;
-			}
+				preparedStatement=makePreparedStatemntWithValues(preparedStatement,queryParameterValues);
 			}
 			Integer rowsImpacted=preparedStatement.executeUpdate();
 			if(rowsImpacted==1)
@@ -143,38 +150,9 @@ public class ConnectionClass {
 			preparedStatement=connection.prepareStatement(sqlQuery);
 			if(queryParameterValues!=null)
 			{
-				Set<String> parameterNameSet=queryParameterValues.keySet();
-				Iterator<String> iterator=parameterNameSet.iterator();
-				int i=1;
-				while(iterator.hasNext())
-				{
-					String parameterName=iterator.next();
-					String parameterValue=queryParameterValues.get(parameterName).trim();
-					
-					if(encyptionParamters.contains(parameterName))
-						parameterValue=Encryption.encrypt(parameterValue);
-					
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("STRING"))
-					preparedStatement.setString(i,parameterValue );
-					
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("INTEGER"))
-					preparedStatement.setInt(i, Integer.parseInt(parameterValue));
+				preparedStatement=makePreparedStatemntWithValues(preparedStatement,queryParameterValues);
 				
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("TIMESTAMP"))
-					{
-						SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-						Date date=simpleDateFormat.parse(parameterValue);
-						preparedStatement.setTimestamp(i,new Timestamp(date.getTime()));
-					}
-					
-					if(parameterMapping.get(parameterName).equalsIgnoreCase("DATE"))
-					{
-						SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-						Date date=simpleDateFormat.parse(parameterValue);
-						preparedStatement.setDate(i,new java.sql.Date(date.getTime()));
-						}	
-					i++;
-			}}
+			}
 			ResultSet rs=preparedStatement.executeQuery();
 			if(rs.getRow()>=0)
 				resultSet=rs;
@@ -211,7 +189,7 @@ public class ConnectionClass {
 			FileReader fileReader=new FileReader(scriptFile);
 			BufferedReader bufferedReader=new BufferedReader(fileReader);
 			ScriptRunner scriptRunner=new ScriptRunner(connection,false,false);
-			//scriptRunner.runScript(bufferedReader);
+			scriptRunner.runScript(bufferedReader);
 			connection.commit();
 			
 		}
