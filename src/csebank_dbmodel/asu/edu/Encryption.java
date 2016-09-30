@@ -78,8 +78,8 @@ public class Encryption {
 	public static void main(String args[]) throws Exception
 	{
 		
-		ConnectionClass classs=new ConnectionClass();
-		classs.executeScript("C:\\Users\\Harshit Kumar\\Desktop\\resumes\\database.sql");
+		PropertiesLoader classs=new PropertiesLoader();
+		System.out.println(classs.getParamterMapping());
 		//KeyLoader.keyGenerate("C:\\Users\\Harshit Kumar\\Desktop\\Crypto\\key.key");
 		//System.out.println(Encryption.encrypt("July1907~","C:\\Users\\Harshit Kumar\\Desktop\\Crypto\\key.key"));
 	}

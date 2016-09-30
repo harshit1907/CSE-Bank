@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -68,7 +69,7 @@ public class ConnectionClass {
 		
 	}
 	
-	public PreparedStatement makePreparedStatemntWithValues(PreparedStatement preparedStatement,HashMap<String,String> queryParameterValues) throws ParseException, SQLException
+	public PreparedStatement makePreparedStatemntWithValues(PreparedStatement preparedStatement,LinkedHashMap<String,String> queryParameterValues) throws ParseException, SQLException
 	{
 		Set<String> parameterNameSet=queryParameterValues.keySet();
 		Iterator<String> iterator=parameterNameSet.iterator();
@@ -105,7 +106,7 @@ public class ConnectionClass {
 		return preparedStatement;
 	}
 	
-	public boolean executeUpdateWithSQLQuery(String sqlQuery, HashMap<String,String> queryParameterValues){
+	public boolean executeUpdateWithSQLQuery(String sqlQuery, LinkedHashMap<String,String> queryParameterValues){
 		boolean result=false;
 		try{
 			preparedStatement=connection.prepareStatement(sqlQuery);
@@ -143,7 +144,7 @@ public class ConnectionClass {
 		}
 		return result;
 	}
-		public ResultSet executeSelectQuery(String sqlQuery,HashMap<String,String> queryParameterValues)
+		public ResultSet executeSelectQuery(String sqlQuery,LinkedHashMap<String,String> queryParameterValues)
 	{
 		ResultSet resultSet = null;
 		try{
