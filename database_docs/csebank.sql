@@ -1,12 +1,3 @@
-/**
- * Database creation script file
- *
- * @package    CSE-Bank
- * @authors    1. Mihir Thakkar (Task #20)
- *             2. 
- *             3.
- */
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -19,72 +10,87 @@ CREATE DATABASE IF NOT EXISTS `csebank` DEFAULT CHARACTER SET utf8 COLLATE utf8_
 USE `csebank`;
 
 DROP TABLE IF EXISTS `Account`;
-CREATE TABLE `Account` (
-  `AccountId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `Account` (
+  `AccountId` bigint(16) UNSIGNED NOT NULL,
   `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `AccType` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `AccOpenDate` date NOT NULL,
   `AccBalance` int(11) NOT NULL,
-  `AccStatus` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `AccStatus` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`AccountId`),
+  UNIQUE KEY `index_accountid` (`AccountId`),
+  UNIQUE KEY `AccountId` (`AccountId`),
+  KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `AccountLog`;
-CREATE TABLE `AccountLog` (
-  `AccountId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `TransId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `AccountBalance` int(11) NOT NULL
+CREATE TABLE IF NOT EXISTS `AccountLog` (
+  `TransId` int(11) DEFAULT NULL,
+  `AccountBalance` int(11) NOT NULL,
+  `AccountId` bigint(16) UNSIGNED NOT NULL,
+  UNIQUE KEY `AccountId` (`AccountId`),
+  KEY `TransId` (`TransId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `Credit`;
-CREATE TABLE `Credit` (
-  `CreditAccId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `Credit` (
+  `CreditAccId` bigint(16) UNSIGNED NOT NULL,
+  `CreditBalance` int(11) NOT NULL,
   `CreditLimit` int(11) NOT NULL,
-  `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`CreditAccId`),
+  KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `Devices`;
-CREATE TABLE `Devices` (
+CREATE TABLE IF NOT EXISTS `Devices` (
   `DeviceId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`DeviceId`),
+  KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `KYCRequest`;
-CREATE TABLE `KYCRequest` (
+CREATE TABLE IF NOT EXISTS `KYCRequest` (
   `UserfieldId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `FieldValue` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Status` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `Status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `Session`;
-CREATE TABLE `Session` (
+CREATE TABLE IF NOT EXISTS `Session` (
   `SessionKey` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `SessionStart` datetime NOT NULL,
   `SessionEnd` datetime NOT NULL,
   `SessionRequest` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `SessionTimeout` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `SessionOTP` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `SessionOTP` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  UNIQUE KEY `SessionKey` (`SessionKey`),
+  KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `Transaction`;
-CREATE TABLE `Transaction` (
+CREATE TABLE IF NOT EXISTS `Transaction` (
   `TransId` int(11) NOT NULL,
-  `TransType` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `TransType` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'non-critical',
   `TransDescription` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransStatus` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransSrcAccNo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransDestAccNo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransOwner` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `TransTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `TransTimestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `TransApprovedBy` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransAmount` int(11) NOT NULL,
   `TransComments` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `TransResult` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `TransResult` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`TransId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `User`;
-CREATE TABLE `User` (
+CREATE TABLE IF NOT EXISTS `User` (
   `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `UserRole` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `FirstName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -99,47 +105,21 @@ CREATE TABLE `User` (
   `LoginAttempt` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `SecurityQn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `SecurityAns` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Organization` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `Organization` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-ALTER TABLE `Account`
-  ADD PRIMARY KEY (`AccountId`),
-  ADD KEY `UserId` (`UserId`);
-
-ALTER TABLE `AccountLog`
-  ADD KEY `AccountId` (`AccountId`);
-
-ALTER TABLE `Credit`
-  ADD PRIMARY KEY (`CreditAccId`),
-  ADD KEY `UserId` (`UserId`);
-
-ALTER TABLE `Devices`
-  ADD PRIMARY KEY (`DeviceId`),
-  ADD KEY `UserId` (`UserId`);
-
-ALTER TABLE `KYCRequest`
-  ADD KEY `UserId` (`UserId`);
-
-ALTER TABLE `Session`
-  ADD UNIQUE KEY `SessionKey` (`SessionKey`),
-  ADD KEY `UserId` (`UserId`);
-
-ALTER TABLE `Transaction`
-  ADD PRIMARY KEY (`TransId`);
-
-ALTER TABLE `User`
-  ADD PRIMARY KEY (`UserId`);
 
 
 ALTER TABLE `Account`
   ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`);
 
 ALTER TABLE `AccountLog`
-  ADD CONSTRAINT `accountlog_ibfk_1` FOREIGN KEY (`AccountId`) REFERENCES `Account` (`AccountId`);
+  ADD CONSTRAINT `accountlog_ibfk_1` FOREIGN KEY (`AccountId`) REFERENCES `Account` (`AccountId`),
+  ADD CONSTRAINT `accountlog_ibfk_2` FOREIGN KEY (`TransId`) REFERENCES `Transaction` (`TransId`);
 
 ALTER TABLE `Credit`
-  ADD CONSTRAINT `credit_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`);
+  ADD CONSTRAINT `credit_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`),
+  ADD CONSTRAINT `credit_ibfk_2` FOREIGN KEY (`CreditAccId`) REFERENCES `Account` (`AccountId`);
 
 ALTER TABLE `Devices`
   ADD CONSTRAINT `devices_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`);
