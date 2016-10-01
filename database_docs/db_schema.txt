@@ -34,7 +34,7 @@ UserId (foreign key)
 AccType
 AccOpenDate
 AccBalance
-AccStatus  (open, closed, blocked)
+AccStatus  (active, closed, blocked)
 
 --------------------------------------------------
 
@@ -43,7 +43,7 @@ Transaction (TABLE)
 TransId (primary key)
 TransType      (critical, non-critical=1000)
 TransDescription
-TransStatus    (Approved, Rejected, Pending)
+TransStatus    (approved, rejected, pending)
 TransSrcAccno  (unique)
 TransDestAccno (unique)
 TransOwner     (unique)
