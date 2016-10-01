@@ -77,10 +77,5 @@ public class Encryption {
 
 	public static void main(String args[]) throws Exception
 	{
-		
-		PropertiesLoader classs=new PropertiesLoader();
-		System.out.println(classs.getParamterMapping());
-		//KeyLoader.keyGenerate("C:\\Users\\Harshit Kumar\\Desktop\\Crypto\\key.key");
-		//System.out.println(Encryption.encrypt("July1907~","C:\\Users\\Harshit Kumar\\Desktop\\Crypto\\key.key"));
 	}
 }

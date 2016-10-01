@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -19,6 +20,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+
 
 import com.ibatis.common.jdbc.ScriptRunner;
 
@@ -35,8 +37,8 @@ public class ConnectionClass {
 		return connection;
 	}
 	private PreparedStatement preparedStatement=null;
-	
-	
+
+
 	public ConnectionClass(){
 		PropertiesLoader propertiesLoader=new PropertiesLoader();
 		JDBC_DRIVER=propertiesLoader.getJDBC_DRIVER();
@@ -52,7 +54,7 @@ public class ConnectionClass {
 		encyptionParamters.add("Password");
 		encyptionParamters.add("SecurityAns");
 		encyptionParamters.add("SessionOTP");
-			
+
 		try
 		{
 			Class.forName(JDBC_DRIVER);
@@ -66,9 +68,9 @@ public class ConnectionClass {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public PreparedStatement makePreparedStatemntWithValues(PreparedStatement preparedStatement,LinkedHashMap<String,String> queryParameterValues) throws ParseException, SQLException
 	{
 		Set<String> parameterNameSet=queryParameterValues.keySet();
@@ -80,13 +82,13 @@ public class ConnectionClass {
 			String parameterValue=queryParameterValues.get(parameterName);
 			if(encyptionParamters.contains(parameterName))
 				parameterValue=Encryption.encrypt(parameterValue);
-			if(parameterMapping.get(parameterName).equalsIgnoreCase("STRING"))
-			preparedStatement.setString(i,parameterValue );
-			
+			if(parameterMapping.get(parameterName).equalsIgnoreCase("VARCHAR"))
+				preparedStatement.setString(i,parameterValue );
+
 
 			if(parameterMapping.get(parameterName).equalsIgnoreCase("INTEGER"))
-			preparedStatement.setInt(i, Integer.parseInt(parameterValue));
-			
+				preparedStatement.setInt(i, Integer.parseInt(parameterValue));
+
 
 			if(parameterMapping.get(parameterName).equalsIgnoreCase("TIMESTAMP"))
 			{
@@ -94,18 +96,18 @@ public class ConnectionClass {
 				Date date=simpleDateFormat.parse(parameterValue);
 				preparedStatement.setTimestamp(i,new Timestamp(date.getTime()));
 			}
-			
+
 			if(parameterMapping.get(parameterName).equalsIgnoreCase("DATE"))
 			{
 				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
 				Date date=simpleDateFormat.parse(parameterValue);
 				preparedStatement.setDate(i,new java.sql.Date(date.getTime()));
-				}	
+			}	
 			i++;
-	}
+		}
 		return preparedStatement;
 	}
-	
+
 	public boolean executeUpdateWithSQLQuery(String sqlQuery, LinkedHashMap<String,String> queryParameterValues){
 		boolean result=false;
 		try{
@@ -116,10 +118,10 @@ public class ConnectionClass {
 			}
 			Integer rowsImpacted=preparedStatement.executeUpdate();
 			if(rowsImpacted==1)
-				{
+			{
 				result=true;
 				connection.commit();
-				}
+			}
 		}
 		catch(Exception e)
 		{
@@ -136,7 +138,7 @@ public class ConnectionClass {
 			try {
 				preparedStatement.close();
 				connection.close();
-				
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -144,54 +146,37 @@ public class ConnectionClass {
 		}
 		return result;
 	}
-		public ResultSet executeSelectQuery(String sqlQuery,LinkedHashMap<String,String> queryParameterValues)
+	public List<HashMap<String,Object>> resultSetToListOfMaps(ResultSet resultSet) throws SQLException
 	{
-		ResultSet resultSet = null;
+		ResultSetMetaData resultSetMetaData=resultSet.getMetaData();
+		List<HashMap<String,Object>> resultList=new ArrayList<HashMap<String,Object>>(resultSet.getFetchSize());
+		int columnCount=resultSetMetaData.getColumnCount();
+		while(resultSet.next())
+		{
+			HashMap<String, Object> rowMap=new HashMap<String,Object>(columnCount);
+			for(int i=1;i<=columnCount;i++)
+			{
+			rowMap.put(resultSetMetaData.getColumnName(i), resultSet.getObject(i));
+			}
+			resultList.add(rowMap);
+		}
+		return resultList;
+		
+	}
+	public List<HashMap<String,Object>> executeSelectQuery(String sqlQuery,LinkedHashMap<String,String> queryParameterValues)
+	{
+		List<HashMap<String,Object>> resultList=null;
 		try{
 			preparedStatement=connection.prepareStatement(sqlQuery);
 			if(queryParameterValues!=null)
 			{
 				preparedStatement=makePreparedStatemntWithValues(preparedStatement,queryParameterValues);
-				
+
 			}
 			ResultSet rs=preparedStatement.executeQuery();
-			if(rs.getRow()>=0)
-				resultSet=rs;
+			if(rs!=null)
+				resultList=resultSetToListOfMaps(rs);
 			rs.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-		}
-		finally {
-			try {
-				preparedStatement.close();
-				connection.close();
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return resultSet;
-	}
-	public void executeScript(String scriptFilePath)
-	{
-		
-		try{
-			File scriptFile=new File(scriptFilePath);
-			FileReader fileReader=new FileReader(scriptFile);
-			BufferedReader bufferedReader=new BufferedReader(fileReader);
-			ScriptRunner scriptRunner=new ScriptRunner(connection,false,false);
-			scriptRunner.runScript(bufferedReader);
-			connection.commit();
 			
 		}
 		catch(Exception e)
@@ -207,8 +192,43 @@ public class ConnectionClass {
 		}
 		finally {
 			try {
+				preparedStatement.close();
 				connection.close();
-				
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return resultList;
+	}
+	public void executeScript(String scriptFilePath)
+	{
+
+		try{
+			File scriptFile=new File(scriptFilePath);
+			FileReader fileReader=new FileReader(scriptFile);
+			BufferedReader bufferedReader=new BufferedReader(fileReader);
+			ScriptRunner scriptRunner=new ScriptRunner(connection,false,false);
+			scriptRunner.runScript(bufferedReader);
+			connection.commit();
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
+		finally {
+			try {
+				connection.close();
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
