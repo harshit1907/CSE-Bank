@@ -18,6 +18,7 @@ public class PropertiesLoader {
 	private String DB_PASSWORD;
 	private String jsonFileePath;
 	private HashMap<String,String> paramterMapping;
+	private String SERIALIZED_FILE;
 	
 	public  PropertiesLoader()
 	{
@@ -34,6 +35,7 @@ public class PropertiesLoader {
 		this.setJDBC_URL(properties.getProperty("JDBC_URL"));
 		this.setDB_USERNAME(Encryption.decrypt(properties.getProperty("DB_USERNAME")));
 		this.setDB_PASSWORD(Encryption.decrypt(properties.getProperty("DB_PASSWORD")));
+		this.SERIALIZED_FILE=properties.getProperty("SERIAL_FILE");
 		ObjectMapper objectMapper=new ObjectMapper();
 		paramterMapping=objectMapper.readValue(new File(jsonFileePath), new TypeReference<HashMap<String,String>>(){});
 		inputStream.close();
@@ -45,6 +47,14 @@ public class PropertiesLoader {
 		}
 		
 	
+	}
+
+	public String getSERIALIZED_FILE() {
+		return SERIALIZED_FILE;
+	}
+
+	public void setSERIALIZED_FILE(String sERIALIZED_FILE) {
+		SERIALIZED_FILE = sERIALIZED_FILE;
 	}
 
 	public HashMap<String, String> getParamterMapping() {

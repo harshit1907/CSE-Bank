@@ -3,7 +3,9 @@ package csebank_dbmodel.asu.edu;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -77,10 +79,12 @@ public class Encryption {
 
 	public static void main(String args[]) throws Exception
 	{
+		/*SetOfAccountTransID s=new SetOfAccountTransID();
+		Set<String> sa=new HashSet<String>();
+		sa.add("234567891");
+		s.setIdSet(sa);
 		
-		PropertiesLoader classs=new PropertiesLoader();
-		System.out.println(classs.getParamterMapping());
-		//KeyLoader.keyGenerate("C:\\Users\\Harshit Kumar\\Desktop\\Crypto\\key.key");
-		//System.out.println(Encryption.encrypt("July1907~","C:\\Users\\Harshit Kumar\\Desktop\\Crypto\\key.key"));
+		new Utility().createSerializedFile(s);*/
+		System.out.println(new Utility().loadRandomNumber(10));
 	}
 }
