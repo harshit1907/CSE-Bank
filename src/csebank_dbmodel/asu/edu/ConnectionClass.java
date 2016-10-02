@@ -30,6 +30,7 @@ public class ConnectionClass {
 	private final String JDBC_URL;
 	private final String DB_USERNAME;
 	private final String DB_PASSWORD;
+	private String SCRIPT_FILE_PATH;
 	private Connection connection=null;
 	private HashMap<String,String> parameterMapping;
 	List<String> encyptionParamters;
@@ -44,6 +45,7 @@ public class ConnectionClass {
 		JDBC_DRIVER=propertiesLoader.getJDBC_DRIVER();
 		JDBC_URL=propertiesLoader.getJDBC_URL();
 		DB_USERNAME=propertiesLoader.getDB_USERNAME();
+		SCRIPT_FILE_PATH=propertiesLoader.getSCRIPT_FILE_PATH();
 		DB_PASSWORD=propertiesLoader.getDB_PASSWORD();
 		parameterMapping=propertiesLoader.getParamterMapping();
 		encyptionParamters=new ArrayList<String>();
@@ -54,6 +56,8 @@ public class ConnectionClass {
 		encyptionParamters.add("Password");
 		encyptionParamters.add("SecurityAns");
 		encyptionParamters.add("SessionOTP");
+		encyptionParamters.add("TransSrcAccNo");
+		encyptionParamters.add("TransDestAccNo");
 
 		try
 		{
@@ -83,24 +87,24 @@ public class ConnectionClass {
 			if(encyptionParamters.contains(parameterName))
 				parameterValue=Encryption.encrypt(parameterValue);
 			if(parameterMapping.get(parameterName).equalsIgnoreCase("VARCHAR"))
-				preparedStatement.setString(i,parameterValue );
+				preparedStatement.setString(i,parameterValue.trim());
 
 
 			if(parameterMapping.get(parameterName).equalsIgnoreCase("INTEGER"))
-				preparedStatement.setInt(i, Integer.parseInt(parameterValue));
+				preparedStatement.setInt(i, Integer.parseInt(parameterValue.trim()));
 
 
 			if(parameterMapping.get(parameterName).equalsIgnoreCase("TIMESTAMP"))
 			{
 				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-				Date date=simpleDateFormat.parse(parameterValue);
+				Date date=simpleDateFormat.parse(parameterValue.trim());
 				preparedStatement.setTimestamp(i,new Timestamp(date.getTime()));
 			}
 
 			if(parameterMapping.get(parameterName).equalsIgnoreCase("DATE"))
 			{
 				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-				Date date=simpleDateFormat.parse(parameterValue);
+				Date date=simpleDateFormat.parse(parameterValue.trim());
 				preparedStatement.setDate(i,new java.sql.Date(date.getTime()));
 			}	
 			i++;
@@ -156,7 +160,11 @@ public class ConnectionClass {
 			HashMap<String, Object> rowMap=new HashMap<String,Object>(columnCount);
 			for(int i=1;i<=columnCount;i++)
 			{
-			rowMap.put(resultSetMetaData.getColumnName(i), resultSet.getObject(i));
+				String parameterName=resultSetMetaData.getColumnName(i);
+				String value= (String) resultSet.getObject(i);
+				if(encyptionParamters.contains(parameterName))
+					value=Encryption.decrypt(value);
+			rowMap.put(parameterName,value);
 			}
 			resultList.add(rowMap);
 		}
@@ -202,11 +210,11 @@ public class ConnectionClass {
 		}
 		return resultList;
 	}
-	public void executeScript(String scriptFilePath)
+	public void executeScript()
 	{
 
 		try{
-			File scriptFile=new File(scriptFilePath);
+			File scriptFile=new File(SCRIPT_FILE_PATH);
 			FileReader fileReader=new FileReader(scriptFile);
 			BufferedReader bufferedReader=new BufferedReader(fileReader);
 			ScriptRunner scriptRunner=new ScriptRunner(connection,false,false);

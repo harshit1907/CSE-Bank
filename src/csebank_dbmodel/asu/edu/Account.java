@@ -1,11 +1,12 @@
 package csebank_dbmodel.asu.edu;
+import java.sql.*;
 
 public class Account {
 	private String AccountId;
 	private String UserId;
 	private String AccType;
-	private String AccOpenDate;
-	private String AccBalance;
+	private Date AccOpenDate;
+	private int AccBalance;
 	private String AccStatus;
 	
 	//account table constructors
@@ -14,12 +15,12 @@ public class Account {
 		this.UserId = null;
 		this.AccType = null;
 		this.AccOpenDate = null;
-		this.AccBalance = null;
+		this.AccBalance = 0;
 		this.AccStatus = null;
 	}
 	
-	public Account(String accountId, String userId, String accType, String accOpenDate,
-			String accBalance, String accStatus) {
+	public Account(String accountId, String userId, String accType, Date accOpenDate,
+			int accBalance, String accStatus) {
 		this.AccountId = accountId;
 		this.UserId = userId;
 		this.AccType = accType;
@@ -56,20 +57,20 @@ public class Account {
 	}
 	
 	//accOpenDate getter setter functions
-	public String getAccOpenDate() {
+	public Date getAccOpenDate() {
 		return AccOpenDate;
 	}
 
-	public void setAccOpenDate(String accOpenDate) {
+	public void setAccOpenDate(Date accOpenDate) {
 		AccOpenDate = accOpenDate;
 	}
 	
 	//accBalance getter setter functions
-	public String getAccBalance() {
+	public int getAccBalance() {
 		return AccBalance;
 	}
 
-	public void setAccBalance(String accBalance) {
+	public void setAccBalance(int accBalance) {
 		AccBalance = accBalance;
 	}
 	

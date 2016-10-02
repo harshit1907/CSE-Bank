@@ -19,7 +19,10 @@ public class Utility {
 	public void createSerializedFile(SetOfAccountTransID setOfAccountTransID)
 	{
 		try{
-		FileOutputStream  fileOutputStream=new FileOutputStream(new File(serialFilePath));
+		File serialFile=	new File(serialFilePath);
+		if(!serialFile.exists())
+			serialFile.createNewFile();
+		FileOutputStream  fileOutputStream=new FileOutputStream(serialFile);
 		ObjectOutputStream objectOutputStream=new ObjectOutputStream(fileOutputStream);
 		objectOutputStream.writeObject(setOfAccountTransID);
 		objectOutputStream.close();

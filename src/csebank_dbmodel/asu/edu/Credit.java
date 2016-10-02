@@ -3,16 +3,16 @@ package csebank_dbmodel.asu.edu;
 public class Credit {
 	private String CreditAccId;
 	private String UserId;
-	private String CreditLimit;
+	private int CreditLimit;
 	
 	//Credit table constructors
 	public Credit() {
 		this.CreditAccId = null;
 		this.UserId = null;
-		this.CreditLimit = null;
+		this.CreditLimit = 0;
 	}
 	
-	public Credit(String creditaccId, String userId, String creditLimit) {
+	public Credit(String creditaccId, String userId, int creditLimit) {
 		this.CreditAccId = creditaccId;
 		this.UserId = userId;
 		this.CreditLimit = creditLimit;
@@ -37,11 +37,11 @@ public class Credit {
 	}
 	
 	//credit limit getter setter functions
-	public String getCreditLimit() {
+	public int getCreditLimit() {
 		return CreditLimit;
 	}
 
-	public void setCreditLimit(String creditLimit) {
+	public void setCreditLimit(int creditLimit) {
 		CreditLimit = creditLimit;
 	}
 }

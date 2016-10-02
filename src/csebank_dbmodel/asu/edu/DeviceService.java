@@ -8,14 +8,14 @@ import java.util.List;
 
 public class DeviceService {
 
-	ConnectionClass connectionClass=null;
+	private ConnectionClass connectionClass=null;
 	private HashMap<String,String> parameterMap;
 	private LinkedHashMap<String, String> parameterNameValueMap;
 	
 	public DeviceService(HashMap<String,String> parameterMap)
 	{
 		connectionClass=new ConnectionClass();
-		 parameterNameValueMap=new LinkedHashMap<String,String>();
+		parameterNameValueMap=new LinkedHashMap<String,String>();
 		try{
 		if(parameterMap!=null)
 					this.parameterMap=parameterMap;
@@ -50,7 +50,7 @@ public class DeviceService {
 		 List<HashMap<String,Object>> resultList=connectionClass.executeSelectQuery(selectQuery, parameterNameValueMap);
 		 for(int i=0;i<resultList.size();i++)
 		 {
-		 Device device=new Device(Encryption.decrypt(resultList.get(0).get("UserId").toString()), resultList.get(0).get("UserId").toString());
+		 Device device=new Device(resultList.get(0).get("DeviceId").toString(), resultList.get(0).get("UserId").toString());
 		 deviceList.add(device);
 		 }
 	     parameterNameValueMap.clear();
@@ -63,7 +63,7 @@ public class DeviceService {
 		 String selectQuery="SELECT UserId,DeviceId from DEVICES where DeviceId=?;";
 		 parameterNameValueMap.put("DeviceId", parameterMap.get("DeviceId"));
 		 List<HashMap<String,Object>> resultList=connectionClass.executeSelectQuery(selectQuery, parameterNameValueMap);
-			 device=new Device(Encryption.decrypt(resultList.get(0).get("UserId").toString()), resultList.get(0).get("UserId").toString());
+			 device=new Device(resultList.get(0).get("UserId").toString(), resultList.get(0).get("UserId").toString());
 		
 		 parameterNameValueMap.clear();
 		
@@ -84,14 +84,4 @@ public class DeviceService {
 	
 	
 	
-}
-@SuppressWarnings("serial")
-class ParameterMapNullException extends Exception{
-	public ParameterMapNullException(){
-		
-	}
-	public ParameterMapNullException(String message)
-	{
-		super(message);
-	}
 }

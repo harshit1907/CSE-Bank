@@ -1,5 +1,7 @@
 package csebank_dbmodel.asu.edu;
 
+import java.sql.Date;
+
 public class User {
 	
 	private String UserId;
@@ -9,8 +11,8 @@ public class User {
 	private String Phone;
 	private String Email;
 	private String Address;
-	private String SSN;
-	private String DOB;
+	private int SSN;
+	private Date DOB;
 	private String Password;
 	private String UserStatus;
 	private String LoginAttempt;
@@ -27,7 +29,7 @@ public class User {
 		this.Phone = null;
 		this.Email = null;
 		this.Address = null;
-		this.SSN = null;
+		this.SSN = 0;
 		this.DOB = null;
 		this.Password = null;
 		this.UserStatus = null;
@@ -37,7 +39,7 @@ public class User {
 		this.Organization = null;
 	}
 	public User(String userId, String userRole, String firstName, String lastName, String phone,
-			String email, String address, String ssn, String dob, String password, String userStatus,
+			String email, String address, int ssn, Date dob, String password, String userStatus,
 			String loginAttempt, String securityQn, String securityAns, String organization){
 		this.UserId = userId;
 		this.UserRole = userRole;
@@ -113,18 +115,18 @@ public class User {
 	}
 	
 	//ssn getter setter functions
-	public String getSSN(){
+	public int getSSN(){
 		return SSN;
 	}
-	public void setSSN(String ssn) {
+	public void setSSN(int ssn) {
 		SSN = ssn;
 	}
 	
 	//dob getter setter functions
-	public String getDOB(){
+	public Date getDOB(){
 		return DOB;
 	}
-	public void setDOB(String dob) {
+	public void setDOB(Date dob) {
 		DOB = dob;
 	}
 	

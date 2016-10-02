@@ -3,16 +3,16 @@ package csebank_dbmodel.asu.edu;
 public class AccountLog {
 	private String AccId;
 	private String TransId;
-	private String AccountBalance;
+	private int AccountBalance;
 	
 	//account log table constructors
 	public AccountLog() {
 		this.AccId = null;
 		this.TransId = null;
-		this.AccountBalance = null;
+		this.AccountBalance = 0;
 	}
 	
-	public AccountLog(String accId, String transId, String accountBalance) {
+	public AccountLog(String accId, String transId, int accountBalance) {
 		this.AccId = transId;
 		this.TransId = transId;
 		this.AccountBalance = accountBalance;
@@ -37,11 +37,11 @@ public class AccountLog {
 	}
 	
 	//Account balance getter setter functions
-	public String getAccountBalance() {
+	public int getAccountBalance() {
 		return AccountBalance;
 	}
 
-	public void setAccountBalance(String accountBalance) {
+	public void setAccountBalance(int accountBalance) {
 		AccountBalance = accountBalance;
 	}
 }
