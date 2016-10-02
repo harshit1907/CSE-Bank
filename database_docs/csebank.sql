@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `Account` (
 
 DROP TABLE IF EXISTS `AccountLog`;
 CREATE TABLE IF NOT EXISTS `AccountLog` (
-  `TransId` int(11) DEFAULT NULL,
+  `TransId` int(11) NOT NULL,
   `AccountBalance` int(11) NOT NULL,
   `AccountId` bigint(16) UNSIGNED NOT NULL,
   UNIQUE KEY `AccountId` (`AccountId`),
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `Session` (
   `SessionEnd` datetime NOT NULL,
   `SessionRequest` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `SessionTimeout` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `SessionOTP` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `SessionOTP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   UNIQUE KEY `SessionKey` (`SessionKey`),
   KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -78,13 +78,13 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
   `TransType` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'non-critical',
   `TransDescription` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransStatus` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `TransSrcAccNo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `TransDestAccNo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `TransSrcAccNo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TransDestAccNo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `TransOwner` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransTimestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `TransApprovedBy` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `TransAmount` int(11) NOT NULL,
-  `TransComments` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `TransComments` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `TransResult` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`TransId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `UserId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `UserRole` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `FirstName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `LastName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `LastName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `Address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -102,10 +102,10 @@ CREATE TABLE IF NOT EXISTS `User` (
   `DOB` date NOT NULL,
   `Password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `UserStatus` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `LoginAttempt` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `LoginAttempt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `SecurityQn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `SecurityAns` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `Organization` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `Organization` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
