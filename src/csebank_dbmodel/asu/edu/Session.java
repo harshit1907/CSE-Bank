@@ -1,10 +1,12 @@
 package csebank_dbmodel.asu.edu;
 
+import java.sql.Timestamp;
+
 public class Session {
 	private String SessionKey;
 	private String UserId;
-	private String SessionStart;
-	private String SessionEnd;
+	private Timestamp SessionStart;
+	private Timestamp SessionEnd;
 	private String SessionRequest;
 	private String SessionTimeout;
 	private String SessionOTP;
@@ -20,7 +22,7 @@ public class Session {
 		this.SessionOTP = null;
 	}
 	
-	public Session(String sessionKey, String userId, String sessionStart, String sessionEnd,
+	public Session(String sessionKey, String userId, Timestamp sessionStart, Timestamp sessionEnd,
 			String sessionRequest, String sessionTimeout, String sessionOTP) {
 		this.SessionKey = sessionKey;
 		this.UserId = userId;
@@ -50,20 +52,20 @@ public class Session {
 	}
 	
 	//session start getter setter functions
-	public String getSessionStart() {
+	public Timestamp getSessionStart() {
 		return SessionStart;
 	}
 
-	public void setSessionStart(String sessionStart) {
+	public void setSessionStart(Timestamp sessionStart) {
 		SessionStart = sessionStart;
 	}
 	
 	//session end getter setter functions
-	public String getSessionEnd() {
+	public Timestamp getSessionEnd() {
 		return SessionEnd;
 	}
 
-	public void setSessionEnd(String sessionEnd) {
+	public void setSessionEnd(Timestamp sessionEnd) {
 		SessionEnd = sessionEnd;
 	}
 	

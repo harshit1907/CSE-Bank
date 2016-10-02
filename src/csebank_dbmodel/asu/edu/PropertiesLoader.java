@@ -19,7 +19,8 @@ public class PropertiesLoader {
 	private String jsonFileePath;
 	private HashMap<String,String> paramterMapping;
 	private String SERIALIZED_FILE;
-	
+	private String SCRIPT_FILE_PATH;
+
 	public  PropertiesLoader()
 	{
 	Properties properties=new Properties();
@@ -33,6 +34,7 @@ public class PropertiesLoader {
 		this.jsonFileePath=properties.getProperty("JSON_MAPPING");
 		this.setJDBC_DRIVER(properties.getProperty("JDBC_DRIVER"));
 		this.setJDBC_URL(properties.getProperty("JDBC_URL"));
+		this.setSCRIPT_FILE_PATH(properties.getProperty("SCRIPT_FILE_PATH"));
 		this.setDB_USERNAME(Encryption.decrypt(properties.getProperty("DB_USERNAME")));
 		this.setDB_PASSWORD(Encryption.decrypt(properties.getProperty("DB_PASSWORD")));
 		this.SERIALIZED_FILE=properties.getProperty("SERIAL_FILE");
@@ -47,6 +49,13 @@ public class PropertiesLoader {
 		}
 		
 	
+	}
+	public String getSCRIPT_FILE_PATH() {
+		return SCRIPT_FILE_PATH;
+	}
+
+	public void setSCRIPT_FILE_PATH(String sCRIPT_FILE_PATH) {
+		SCRIPT_FILE_PATH = sCRIPT_FILE_PATH;
 	}
 
 	public String getSERIALIZED_FILE() {

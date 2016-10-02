@@ -1,23 +1,25 @@
 package csebank_dbmodel.asu.edu;
 
+import java.sql.Timestamp;
+
 public class Transaction {
 	
-	private String TransId;
+	private int TransId;
 	private String TransType;
 	private String TransDescription;
 	private String TransStatus;
 	private String TransSrcAccno;
 	private String TransDestAccno;
 	private String TransOwner;
-	private String TransTimestamp;
+	private Timestamp TransTimestamp;
 	private String TransApprovedBy;
-	private String TransAmount;
+	private int TransAmount;
 	private String TransComments;
 	private String TransResult;
 	
 	//Transaction table constructors
 	public Transaction(){
-		this.TransId = null;
+		this.TransId = 0;
 		this.TransType = null;
 		this.TransDescription = null;
 		this.TransStatus = null;
@@ -26,13 +28,13 @@ public class Transaction {
 		this.TransOwner = null;
 		this.TransTimestamp = null;
 		this.TransApprovedBy = null;
-		this.TransAmount = null;
+		this.TransAmount = 0;
 		this.TransComments = null;
 		this.TransResult = null;
 	}
-	public Transaction(String transId, String transType, String transDescription, String transStatus,
-			String transSrcAccno, String transDestAccNo, String transOwner, String transTimestamp,
-			String transApprovedBy, String transAmount, String transComments, String transResult){
+	public Transaction(int transId, String transType, String transDescription, String transStatus,
+			String transSrcAccno, String transDestAccNo, String transOwner, Timestamp transTimestamp,
+			String transApprovedBy, int transAmount, String transComments, String transResult){
 		this.TransId = transId;
 		this.TransType = transType;
 		this.TransDescription = transDescription;
@@ -48,10 +50,10 @@ public class Transaction {
 	}
 	
 	//trans id getter and setter functions
-	public String getTransId(){
+	public int getTransId(){
 		return TransId;
 	}
-	public void setTransId(String transId) {
+	public void setTransId(int transId) {
 		TransId = transId;
 	}
 	
@@ -104,10 +106,10 @@ public class Transaction {
 	}
 	
 	//trans timestamp getter and setter functions
-	public String getTransTimestamp(){
+	public Timestamp getTransTimestamp(){
 		return TransTimestamp;
 	}
-	public void setTransTimestamp(String transTimestamp) {
+	public void setTransTimestamp(Timestamp transTimestamp) {
 		TransTimestamp = transTimestamp;
 	}
 	
@@ -120,10 +122,10 @@ public class Transaction {
 	}
 	
 	//trans amount getter and setter functions
-	public String getTransAmount(){
+	public int getTransAmount(){
 		return TransAmount;
 	}
-	public void setTransAmount(String transAmount) {
+	public void setTransAmount(int transAmount) {
 		TransAmount = transAmount;
 	}
 	
