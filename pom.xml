@@ -4,31 +4,10 @@
   <artifactId>CSE-Bank</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-<<<<<<< HEAD
-<<<<<<< HEAD
-  
-=======
->>>>>>> upstream/master
-=======
->>>>>>> upstream/master
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <warSourceDirectory>csebank_web_model/WebContent</warSourceDirectory>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-      <plugin>
-=======
->>>>>>> upstream/master
-=======
->>>>>>> upstream/master
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
@@ -37,33 +16,6 @@
         </configuration>
       </plugin>
       <plugin>
-<<<<<<< HEAD
-<<<<<<< HEAD
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<finalName>${project.artifactId}</finalName>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-    </plugins>
-  </build>
-=======
-=======
->>>>>>> upstream/master
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
         <configuration>
@@ -120,8 +72,4 @@
    </dependency>
 
   </dependencies>
-<<<<<<< HEAD
->>>>>>> upstream/master
-=======
->>>>>>> upstream/master
 </project>
