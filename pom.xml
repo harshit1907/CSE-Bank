@@ -5,13 +5,17 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 <<<<<<< HEAD
+<<<<<<< HEAD
   
+=======
+>>>>>>> upstream/master
 =======
 >>>>>>> upstream/master
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
@@ -23,6 +27,8 @@
       <plugin>
 =======
 >>>>>>> upstream/master
+=======
+>>>>>>> upstream/master
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
@@ -31,6 +37,7 @@
         </configuration>
       </plugin>
       <plugin>
+<<<<<<< HEAD
 <<<<<<< HEAD
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -55,6 +62,8 @@
     </plugins>
   </build>
 =======
+=======
+>>>>>>> upstream/master
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
         <configuration>
@@ -111,5 +120,8 @@
    </dependency>
 
   </dependencies>
+<<<<<<< HEAD
+>>>>>>> upstream/master
+=======
 >>>>>>> upstream/master
 </project>
