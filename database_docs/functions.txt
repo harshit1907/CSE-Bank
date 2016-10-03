@@ -1,0 +1,43 @@
+mihir
+acountlog, account 
+add acount(generate a random account 
+delete account
+modify account
+validateBalance---return true false
+getAccountDetails
+checkStatus
+getBalance
+blockAccount
+
+accountLog
+addLogEntry (compute accountbalance)
+getAccountLog()
+
+pushkar session kyc, textfile maker
+session--setTimeout,insert session, getOtp,setEndtime
+kyc--insertKyc updateStatus checkStatus
+harshit transaction, devices
+
+sai majeeera
+ credit
+validateCreditTrans - block account if amount > threshold will be done HARSHIT
+addCreditAccount - create new account
+setCreditLimit - based on person's goodwill 
+
+user 
+NOTE: these columns should be encrypted - pwd, securityanswer, SSN, DOB, emial, ph. number
+addnewuser
+modifyuserdetails - do not allow modification of SSN, emial and phone number and DOB
+KYC (allow email, phone number, DOB)
+setUserStatus
+validateLoginCredentials (if username does not exist, return wrong user, if pwd doesnot exist, return wrong pwd and increment loginAttempt)
+// loginAttempt will be set to 0 when session ends
+UpdateLoginAttempt() // this function shold be called by pushkar for session
+checkSecurityAns ( ans will be incrypted before inserting into DB )
+
+Transaction--
+inserttransaction,settrans_status,checktrans_status,setApprovalandComment,getifapproved,updatetransactiontype,settransactionResult
+device--
+insert device,checkIp
+
+

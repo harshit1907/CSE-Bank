@@ -4,11 +4,15 @@
   <artifactId>CSE-Bank</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+<<<<<<< HEAD
   
+=======
+>>>>>>> upstream/master
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
+<<<<<<< HEAD
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
         <configuration>
@@ -17,6 +21,8 @@
         </configuration>
       </plugin>
       <plugin>
+=======
+>>>>>>> upstream/master
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
@@ -25,6 +31,7 @@
         </configuration>
       </plugin>
       <plugin>
+<<<<<<< HEAD
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>2.3</version>
@@ -47,4 +54,62 @@
 			</plugin>
     </plugins>
   </build>
+=======
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <warSourceDirectory>csebank_web_model/WebContent</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.sun.jersey</groupId>
+  		<artifactId>jersey-core</artifactId>
+  		<version>1.19.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sun.jersey</groupId>
+  		<artifactId>jersey-bundle</artifactId>
+  		<version>1.19.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sun.jersey</groupId>
+  		<artifactId>jersey-server</artifactId>
+  		<version>1.19.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.json</groupId>
+  		<artifactId>json</artifactId>
+  		<version>20140107</version>
+  	</dependency>
+  	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+   <dependency>
+       <groupId>javax.servlet</groupId>
+       <artifactId>javax.servlet-api</artifactId>
+       <version>3.1.0</version>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-sqlmap -->
+   <dependency>
+       <groupId>org.apache.ibatis</groupId>
+       <artifactId>ibatis-sqlmap</artifactId>
+       <version>2.3.4.726</version>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+   <dependency>
+       <groupId>commons-codec</groupId>
+       <artifactId>commons-codec</artifactId>
+       <version>1.9</version>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+   <dependency>
+       <groupId>org.codehaus.jackson</groupId>
+       <artifactId>jackson-mapper-asl</artifactId>
+       <version>1.9.13</version>
+   </dependency>
+
+  </dependencies>
+>>>>>>> upstream/master
 </project>
