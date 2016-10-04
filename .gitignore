@@ -8,3 +8,6 @@
 .DS_Store
 >>>>>>> upstream/master
 /target/
+.project
+.classpath
+.settings/
