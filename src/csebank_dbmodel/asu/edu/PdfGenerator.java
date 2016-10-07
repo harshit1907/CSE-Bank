@@ -1,5 +1,4 @@
 package csebank_dbmodel.asu.edu;
-
 import java.io.FileNotFoundException;
 
 import java.io.FileOutputStream;
@@ -35,6 +34,8 @@ public class PdfGenerator {
 public  String genPdf(int acctno) throws DocumentException, SQLException
 {
 	ConnectionClass connectionClass=new ConnectionClass();
+	ConnectionClass connectionClassDob=new ConnectionClass();
+	ConnectionClass connectionClassAcctbal=new ConnectionClass();
     String filepath="C:\\Users\\Pushkar\\"+acctno+".pdf";
 	String getDob="Select DOB from user usr,account acct where acct.AccountId=? and acct.UserId=usr.UserId; ";
     String selectSQL ="SELECT trans.transtimestamp,trans.transsrcaccno,trans.transdestaccno,acctlog.accountbalance FROM `accountlog` acctlog,transaction trans where trans.transid=acctlog.transid and AccountId=? order by trans.transtimestamp";
@@ -42,15 +43,16 @@ public  String genPdf(int acctno) throws DocumentException, SQLException
 	LinkedHashMap<String, String> queryParameterValues=new LinkedHashMap<String,String>();
 	queryParameterValues.put("AccountId",String.valueOf(acctno));
 	List<HashMap<String,Object>> resultList = connectionClass.executeSelectQuery(selectSQL, queryParameterValues);
-	List<HashMap<String,Object>> dobresultList=connectionClass.executeSelectQuery(getDob, queryParameterValues);
-	List<HashMap<String,Object>> accballist=connectionClass.executeSelectQuery(accountBalSQL, queryParameterValues);
+	List<HashMap<String,Object>> dobresultList=connectionClassDob.executeSelectQuery(getDob, queryParameterValues);
+	List<HashMap<String,Object>> accballist=connectionClassAcctbal.executeSelectQuery(accountBalSQL, queryParameterValues);
 	String dob=dobresultList.get(0).get("DOB").toString();
 	String accBal=accballist.get(0).get("AccBalance").toString();
 	Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+	String acctnumber=String.valueOf(acctno);
     try 
     {	
 	 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filepath));
-	 String USER_PASS = dob;
+	 String USER_PASS = acctnumber.substring(acctnumber.length()-4, acctnumber.length())+dob;
      String OWNER_PASS = "Owner123";
      writer.setEncryption(USER_PASS.getBytes(), OWNER_PASS.getBytes(),
 	 PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
@@ -85,7 +87,6 @@ public  String genPdf(int acctno) throws DocumentException, SQLException
 	transaction_table.addCell(credit_cell);
 	PdfPCell balance_cell=new PdfPCell(new Phrase("Balance"));
 	transaction_table.addCell(balance_cell);
-	System.out.println(resultList);
 	for(int i=0;i<resultList.size();i++)
 	 {
 	  Date transtime=((ResultSet) resultList.get(i)).getDate("transtimestamp");
@@ -104,7 +105,6 @@ public  String genPdf(int acctno) throws DocumentException, SQLException
       }
 	  String accountbalance=((ResultSet) resultList.get(i)).getString("accountbalance");
 	  transaction_table.addCell(accountbalance);  
-	  System.out.println(transtime+","+transsrcaccno+","+transdestaccno+","+accountbalance);
 	}		
 	document.add(transaction_table); 
 	Paragraph summary=new Paragraph();
