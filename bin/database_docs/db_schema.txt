@@ -1,0 +1,93 @@
+User (TABLE)
+
+UserId (userName - primary key (ends with 'Id' according to DB naming conventions))
+UserRole 
+FirstName
+LastName
+Phone (unique)
+Email (unique)
+Address
+SSN (unique)
+DOB
+Password (should follow password rules - eg: combination of alphanumeric chars)
+UserStatus
+LoginAttempt
+SecurityQn
+SecurityAns
+Organization
+
+------------------------------------------------
+
+KYCRequest (TABLE)
+
+UserfieldId (primary key)
+UserId (foreign key)
+FieldValue 
+Status
+
+-------------------------------------------------
+
+Account (TABLE)
+
+AccountId (primary key)
+UserId (foreign key)
+AccType
+AccOpenDate
+AccBalance
+AccStatus  (active, closed, blocked)
+
+--------------------------------------------------
+
+Transaction (TABLE)
+
+TransId (primary key)
+TransType      (critical, non-critical=1000)
+TransDescription
+TransStatus    (approved, rejected, pending)
+TransSrcAccno  (unique)
+TransDestAccno (unique)
+TransOwner     (unique)
+TransTimestamp
+TransApprovedBy
+TransAmount
+TransComments
+TransResult    (success, fail)
+
+----------------------------------------------------
+
+AccountLog (TABLE)
+
+AccId (foreign key)
+TransId (foreign key)
+AccountBalance
+
+-----------------------------------------------------
+
+Credit (TABLE)
+
+UserId (foreign key)
+CreditAccId (primary key)
+CreditLimit
+
+------------------------------------------------------
+
+Session (TABLE)
+
+SessionKey (primary key)
+UserId (foreign key)
+SessionStart
+SessionEnd
+SessionRequest
+SessionTimeout (yes or no)
+SessionOTP (unique)
+
+-------------------------------------------------------
+	
+Devices (TABLE)
+
+DeviceId (primary key - IP of the device)
+UserId (foreign key)
+
+--------------------------------------------------------
+
+

@@ -1,6 +1,3 @@
-/build/
-.DS_Store
-/target/
-.project
+.settings/org.eclipse.wst.common.component
 .classpath
-.settings/
+/target
