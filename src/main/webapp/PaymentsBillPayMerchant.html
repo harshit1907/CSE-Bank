@@ -1,0 +1,111 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Payments Bill Pay</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/custom/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+    <script src="js/custom/common.js"></script>
+    <script src="js/custom/nameboard.js"></script>
+    <script src="js/custom/transfersview.js"></script>
+  </head>
+  
+  <body>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <!-- Header -->
+    <div id="navbarspace">
+
+    </div>
+
+    <div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron" id="nameboard">
+                
+          </div>
+          <div class="jumbotron">
+			<form class="popForm" tourl="PaymentsBillPayMerchant.html" url="/group1/transactions/merchant/add" method='POST' noalert="true">
+	           <div>
+	             <h2>Pay on behalf of an Individual:</h2>
+	             <div class="form-group " id="transferbetween2">
+                                    
+                 </div>
+                 <h3>From:</h3>
+	             <div class="row">
+	               <div class="col-sm-6"><input type="text" name="firstName" placeholder="First Name" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	                 <div class="col-sm-6"><input type="text" name="lastName" placeholder="Last Name" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+                 </div>
+	               <h2>  </h2>
+	               <div class="row">
+	               	<div class="col-sm-3"><input type="text" name="trans_src_email" placeholder="Email ID" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	               	<div class="col-sm-3"><input style="margin-left: 170px;" type="text" name="transDescription" placeholder="Description" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	               </div>
+	               <h2>Amount:</h2>
+	                <div class="row">
+	               <div class="col-sm-6"><input type="number" name="transAmount" placeholder="Amount" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	               </div>
+	               <!-- <div style="display:none;"><input type="text" name="transDestAccNo" placeholder="Self" style="color:#888;" value="Self" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div> -->
+	               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+	              	<input type="submit" class="btn btn-primary" value="Pay" id="submit">
+	           </div><!--/.col-xs-6.col-lg-4-->
+           </form>
+          </div>
+          <!-- <div class="jumbotron" id="merchantDiv" style="display: none;">
+          	<form class="popForm" tourl="PaymentsBillPay.html" url="/transactions/merchant/pay" method='POST' noalert="true">
+	            <div>
+	              <h2>Submit Payment for an Individual:</h2>
+	              <div class="row">
+	                <div class="col-sm-6"><input type="text" name="firstname" placeholder="First Name" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	                  <div class="col-sm-6"><input type="text" name="lastname" placeholder="Last Name" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	                  </div>
+	                <h2> OR: </h2>
+	                <div class="row">
+	                <div class="col-sm-6"><input type="text" name="emailid" placeholder="Email ID" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	                </div>
+	                <h2>Amount:</h2>
+	                 <div class="row">
+	                <div class="col-sm-6"><input type="number" name="amount" placeholder="Amount" style="color:#888;" value="" onfocus="inputFocus(this)" onblur="inputBlur(this)" /></div>
+	                </div>
+	                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+	                <input type="submit" class="btn btn-primary" value="Pay" id="submit">
+	            </div>/.col-xs-6.col-lg-4 
+	          </form>          
+          </div>/row-->
+        </div><!--/.col-xs-12.col-sm-9-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas rightParentDiv" id="sidebar_external">
+
+      	</div><!--/row-->
+      <hr>
+    </div><!--/.container-->
+    <footer>
+        <p>&copy; CSE Bank Group1 and contributors 2016.</p>
+      </footer>
+      </div>
+  </body>
+  <script>
+    $(document).ready(function () {
+        $('#myTable').dataTable();
+        $("#myTable_length").hide();
+        $("#myTable_filter").hide();
+    });
+    var template_details = {
+    		payment_merchant_bill_pay_active : "active"
+    }
+    var internal_admin = true
+    var internal_other = false
+    var external = false
+    var internal_other = true
+</script>
+</html>

@@ -1,0 +1,108 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		 				http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security 
+						http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Auto config enabled so that default almost 10 filters is already enabled -->
+	<b:bean id="userController" class="csebank_controllers.asu.edu.UserController"
+		autowire-candidate="true" />
+	<b:bean id="loginFailureHandler"
+		class="csebank_authHelpers.asu.edu.CustomAuthenticationFailureHandler">
+		<b:constructor-arg ref="userController" />
+	</b:bean>
+	<b:bean class="org.springframework.security.web.session.HttpSessionEventPublisher"/>
+	<b:bean id="loginSuccessHandler"
+		class="csebank_authHelpers.asu.edu.CustomAuthenticationSuccessHandler" >
+		<b:constructor-arg ref="userController" />
+	</b:bean>
+	<b:bean id="accessDeniedHandler"
+		class="csebank_authHelpers.asu.edu.CustomAccessDeniedHandler" />
+	<b:bean id="logoutSuccessHandler"
+		class="org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler" />
+	<b:bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl" />
+	<!-- Custom User details provider -->
+	<b:bean id="userDetailsProvider" class="csebank_authHelpers.asu.edu.UserDetailsServiceImpl"></b:bean>
+
+	<!-- use-expressions="true" -->
+	<http auto-config="true"><!-- entry-point-ref="authenticationEntryPoint"> -->
+
+		<access-denied-handler ref="accessDeniedHandler" />
+		<!-- <request-cache ref="authenticationRequestCache" /> -->
+		<!-- Ref:http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html 
+			<headers> <hsts include-subdomains="true" max-age-seconds="31536000" /> </headers> -->
+			<!-- <intercept-url pattern="/**" requires-channel="https"/>-->
+		<!-- Session management -->
+		<session-management
+			session-authentication-strategy-ref="sas">
+		</session-management>
+		<!-- I'm tired this, moving to method level authentication and authorization -->
+		<!--<intercept-url pattern="/anonymous/**" access="permitAll"></intercept-url> 
+			<intercept-url pattern="/user/signup/**" access="permitAll"></intercept-url> 
+			<intercept-url pattern="/checklogin" access="permitAll"></intercept-url> -->
+
+		<!-- Login page <intercept-url pattern="/" access="permitAll"></intercept-url> 
+			<intercept-url pattern="/index.html" access="permitAll"></intercept-url> -->
+		<!-- UI Resources <intercept-url pattern="**.css" access="permitAll"></intercept-url> 
+			<intercept-url pattern="/js/custom/**" access="permitAll"></intercept-url> 
+			<intercept-url pattern="/images/**" access="permitAll"></intercept-url> -->
+		<!-- Handing this with prepost annotation <intercept-url pattern="/customer/**" 
+			access="hasRole('ROLE_CUSTOMER')" /> <intercept-url pattern="/merchant/**" 
+			access="hasRole('ROLE_MERCHANT')" /> <intercept-url pattern="/employee/**" 
+			access="hasRole('ROLE_EMPLOYEE')" /> <intercept-url pattern="/manager/**" 
+			access="hasRole('ROLE_MANAGER')" /> <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" 
+			/> -->
+		<!-- Authentication <intercept-url pattern="/authenticated/**" access="authenticated" 
+			/> <intercept-url pattern="/anonymous/**" access="permitAll"></intercept-url> 
+			<intercept-url pattern="/**" access="authenticated"></intercept-url> -->
+		<!-- TODO Remove this <intercept-url pattern="/check" access="permitAll" 
+			/> -->
+
+		<!-- http://localhost:8080/springProject/login?username=aravind12&password=asu123* -->
+		<!-- login-processing-url="/login" authentication-success-handler-ref="customAuthSuccessHandler" 
+			authentication-failure-url="/?err=1" -->
+		<!-- End points for login page default-target-url="/" always-use-default-target="true" -->
+
+		<form-login login-processing-url="/login"
+			username-parameter="userId" password-parameter="password"
+			authentication-failure-handler-ref="loginFailureHandler"
+			authentication-success-handler-ref="loginSuccessHandler" />		
+	
+		<!-- Logout end point -->
+		<logout logout-url="/logout" delete-cookies="JSESSIONID"
+			invalidate-session="true" success-handler-ref="logoutSuccessHandler" />
+		<!-- Still Vulnerable -->
+		<csrf disabled="true" />
+	</http>
+		
+	<!-- Magic -->
+	<b:bean id="sas"
+		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+		<b:constructor-arg>
+			<b:list>
+				<b:bean
+					class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+					<b:constructor-arg ref="sessionRegistry" />
+					<b:property name="maximumSessions" value="1" />
+					<b:property name="exceptionIfMaximumExceeded" value="true" />
+				</b:bean>
+				<b:bean
+					class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+				<b:bean
+					class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+					<b:constructor-arg ref="sessionRegistry" />
+				</b:bean>
+			</b:list>
+		</b:constructor-arg>
+	</b:bean>
+
+	<!-- Bean implementing AuthenticationProvider of Spring Security -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsProvider" />
+	</authentication-manager>
+
+	
+
+</b:beans>

@@ -1,0 +1,143 @@
+<div class="form-group">
+    <label class="col-lg-3 control-label">Full Name:</label>
+    <div class="col-lg-8">
+        <input class="form-control" type="text" value="{{user_full_name}}" readonly>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-3 control-label">UserId:</label>
+    <div class="col-lg-8">
+        <input id="username" class="form-control" type="text" value="{{user_userId}}" readonly>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-3 control-label">Registered Address:</label>
+    <div class="col-lg-8">
+        <textarea class="form-control" rows="5" id="comment" readonly>{{user_address}}</textarea>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-8">
+    	<label class="col-md-3 control-label " for="select">
+      Select an Option:
+  </label>
+  <select class="select form-control" id="select" name="accType" required onchange="displayOptions()" style="margin-left: 194px;">
+      <option value="Email">
+          Email
+      </option>
+      <option value="Phone_Number">
+          Phone Number
+      </option>
+  </select>
+    </div>
+</div>
+<div class="form-group" id="phoneDiv">
+    <div class="col-md-8">
+    	<label class="col-md-3 control-label">Phone:</label>
+        <input style="margin-left: 194px;" class="form-control" id="phoneId" type="number" value="{{user_phone}}">
+    </div>
+</div>
+<div class="form-group" id="emailDiv">
+    <div class="col-md-8">
+    	<label class="col-md-3 control-label">Email::</label>
+        <input style="margin-left: 194px;" class="form-control" id="emailId" type="text" value="{{user_email_id}}">
+    </div>
+</div>
+
+<script>
+
+$( document ).ready(function() {
+	
+	$("select[name=accType] option:selected").each(function () {
+        var value = $(this).val();
+        if(value == "Email") {
+        	$('#emailDiv').show();
+        	$('#phoneDiv').hide();
+        } else if(value == "Phone_Number") {
+        	//console.log("in phone");
+        	$('#emailDiv').hide();
+        	$('#phoneDiv').show();
+        } 
+    });
+	
+	$("button[name^='submitUsername']" ).click(function() {
+		var inputText = $("#username").val();
+	    //console.log(inputText)
+	    $.ajax({
+	       url : '/group1/anonymous/getsecurityqn/'+inputText,
+	       type :'GET',
+	       contentType: 'application/json',
+	       success : function(data) {
+	           var securityQ1 = data['securityQn1'];
+	           var securityQ2 = data['securityQn2'];
+	           $("#question1").attr("value", securityQ1);
+	           $("#question2").attr("value", securityQ2);
+	           
+	           //$("#question1").
+	       },
+	       error : function(jqXHR, textStatus, errorThrown) {
+	           alert("Some problem detected while deleting")
+	           console.log(jqXHR)
+	       }
+	   });
+	})
+		
+	$("button[name^='submitAnswer']" ).click(function() {
+		var inputText = $("#username").val();
+	   // console.log(inputText);
+	    var answer1 = $("#answer1").val();
+	    var answer2 = $("#answer2").val();
+	    var data = '{"userId":"' + inputText + '", "securityAns1":"'+answer1+'", "securityAns2": "'+ answer2 + '" }';
+	    //console.log(data);
+	    //debugger
+	    $.ajax({
+	       url : '/group1/anonymous/sendOtp/',
+	       type :'POST',
+	       data: data,
+	       contentType: 'application/json',
+	       success : function(data) {
+	    	   //alert(data);
+	    	   //console.log("this");
+	           //console.log(data);
+	           //$("#question1").
+	       },
+	       error : function(jqXHR, textStatus, errorThrown) {
+	           alert("Some problem detected while deleting")
+	          // console.log(jqXHR)
+	       }
+	   });
+	})
+
+	$("button[name^='submitOTP']" ).click(function() {
+		var inputText = $("#username").val();
+	   // console.log(inputText);
+	    var otpValue = $("#otpValue").val();
+	    var newPassword = $("#newPass").val();
+	    var confPassword = $("#confPass").val();
+	    var data = '{"userId":"' + inputText + '", "otp":"'+otpValue+'", "password": "'+ newPassword+'", "confirm_password": "'+ confPassword + '" }';
+	   // console.log(data);
+	    //debugger
+	    $.ajax({
+	       url : '/group1/anonymous/otpAndNewPassword/',
+	       type :'POST',
+	       data: data,
+	       contentType: 'application/json',
+	       success : function(data) {
+	    	   //alert(data);
+	    	   //console.log("this");
+	           //console.log(data);
+	           //$("#question1").
+	       },
+	       error : function(jqXHR, textStatus, errorThrown) {
+	           alert("Some problem detected while deleting")
+	           //console.log(jqXHR)
+	       }
+	   });
+	})
+	
+});
+
+
+
+</script>

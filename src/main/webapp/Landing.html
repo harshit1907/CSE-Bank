@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome to CSE Bank</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/custom/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+    <script src="js/custom/common.js"></script>
+    <script src="js/custom/nameboard.js"></script>
+    <script src="js/custom/accountsboard.js"></script>
+</head>
+
+<body>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<!-- Header -->
+<div id="navbarspace">
+
+</div>
+
+<div class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+            <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron" id="nameboard">
+                
+            </div>
+            <div class="row">
+                <div>
+                    <h3><a href="#">Accounts</a> | <a href="PersonalInformation.html">Personal Information</a> | <a href="Notifications.html">Requests</a> | <a
+                            href="StatementDocs.html">Statement Docs</a></h3>
+                    <hr>
+                </div>
+                <div id="accountsboard">
+                
+                </div>
+                <!--/.col-xs-6.col-lg-4-->
+            </div><!--/row-->
+            <div>
+                <div class="col-xs-6" align="right"><button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                                data-target="#OpenAccount">Open Account
+                        </button></div>
+               
+            </div>
+        </div><!--/.col-xs-12.col-sm-9-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas rightParentDiv" id="sidebar_external">
+
+            <!--/.sidebar-offcanvas-->
+        </div><!--/row-->
+
+
+        <hr>
+        <!-- Modal -->
+        <div class="modal fade" id="creditModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Credit Account</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal popForm" role="form">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label class="col-lg-3 control-label">Available Balance</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="number" value="568.87" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="control-label"><u>Bill Payment Options</u></label>
+                                    <div class="col-lg-8">
+                                        <!-- <input class="form-control" type="date" value=""> -->
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label class="col-lg-3 control-label">Due Date:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="date" value="">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="col-lg-3 control-label">Amount:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="number" value="">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label class="col-lg-3 control-label">Amount:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="number" value="45" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label class="col-lg-3 control-label">Minimum Payment:</label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="number" value="">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label class="col-lg-3 control-label"></label>
+                                    <div class="col-lg-8">
+                                        <!-- <input class="form-control" type="number" value=""> -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button type="button" class="btn btn-primary">Go</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="OpenAccount" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Open Account: </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" style="width: 100%" method='POST' noalert="false" tourl="Landing.html" url="/group1/account/add">
+                            <div class="row">
+                            <!-- harish TODO: Remove it after the api is fixed -->
+                            <input type="hidden" id="userId" name="userId" value="">
+                                <div class="form-group ">
+                                    <label class="control-label " for="select">
+                                        Select an Account:
+                                    </label>
+                                    <select class="select form-control" id="select" name="accType" required>
+                                        <option value="Select an account">
+                                            Select an account
+                                        </option>
+                                        <option value="SAVINGS">
+                                            Savings
+                                        </option>
+                                        <option value="CREDIT">
+                                            Credit
+                                        </option>
+                                        <option value="CHECKING">
+                                            Checking
+                                        </option>
+                                        <!-- <option selected="selected" value=""> -->
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="control-label col-lg-3" for="select">
+                                        Account Balance:
+                                    </label>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" type="text" value="" required name="accBalance" required>USD
+                                    </div>
+                                </div>
+                                <!-- <h3>To</h3> -->
+                            </div>
+                            <div class="row">
+                                <input type="submit" class="btn btn-primary" value="Open" id="submit">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div> 
+
+
+<div class="modal fade" id="CloseAccount" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Close Account: </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" style="width: 100%">
+                            <div class="row">
+                                <div class="form-group ">
+                                    <label class="control-label " for="select">
+                                        Select an Account:
+                                    </label>
+                                    <select class="select form-control" id="select" name="select">
+                                        <option value="Select an account">
+                                            Select an account
+                                        </option>
+                                        <option value="SAVINGS">
+                                            *** 864
+                                        </option>
+                                        <option value="CHECKING">
+                                            *** 256
+                                        </option>
+                                         <option value="CREDIT">
+                                            *** 456
+                                        </option>
+                                        <!-- <option selected="selected" value=""> -->
+                                        </option>
+                                    </select>
+                                </div>
+                                <!-- <h3>To</h3> -->
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary">Go</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div><!--/.container-->
+    <footer>
+        <p>&copy; CSE Bank Group1 and contributors 2016.</p>
+    </footer>
+</body>
+<script>
+    var template_details = {
+        account_active : "active"
+    }
+    var internal_admin = false
+    var internal_other = false
+    var external = false
+    var external = true
+    $(document).ready(function () {
+    $('input#userId').attr('value', localStorage.userId)})
+</script>
+</html>

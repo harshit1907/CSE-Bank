@@ -1,0 +1,56 @@
+<h3>User Hub</h3>
+                    <table id="myTable" class="display table" width="100%" style="padding: 0px;font-size: 9px; */">
+                        <thead>
+                        <tr>
+                            
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Role</th>
+                            <th>Phone No</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>BLOCK</th>
+                            <th>UNBLOCK</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ #. }}
+                        <tr>
+                            
+                            <td>{{ userId }}</td>
+                            <td>{{ firstName }}  {{ lastName }}</td>
+                            <td>{{ userRole }}</td>
+                            <td>{{ phoneNumber }}</td>
+                            <td>{{ email }}</td>
+                            <td>{{ userStatus }}</td>
+                            <td><button type="button" status="BLOCKED" name="btnuserlist_bl_{{ userId }}" value="{{ userId }}" class="btn btn-danger">BLOCK</button></td>
+                            <td><button type="button" status="ACTIVE" name="btnuserlist_unbl_{{ userId }}" value="{{ userId }}" class="btn btn-success">UNBLOCK</button></td>
+                        </tr>
+                        {{ /. }}
+                        </tbody>
+                    </table>
+                    
+<script>
+$('#myTable').dataTable();
+$("#myTable_length").hide();
+$("#myTable_filter").hide();
+$("button[name^='btnuserlist_']" ).click(function() {
+	var data = '{"userId":"' + $(this).attr("value") + '", "userStatus":"' + $(this).attr("status") + '"}'
+	//console.log(data)
+	$.ajax({
+        url : 'updateUserStatus',
+        type :'PUT',
+        data : data,
+        contentType: 'application/json',
+        success : function(data) {
+        	alert(data)
+        	$(location).attr('href', 'InternalUserLanding.html');
+        },
+        error : function(jqXHR, textStatus, errorThrown) {
+        	alert("Some problem detected while deleting")
+        	//console.log(jqXHR)
+        }
+    });
+})
+	
+</script>

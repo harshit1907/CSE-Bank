@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/custom/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+    <script src="js/custom/common.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+</head>
+
+<body>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<!-- Header -->
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div style="text-align: left">
+                <img src="images/custom/banklogo.png" style="height:50px;">
+            </div>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="SignUp.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="index.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Questions?</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+            <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="row">
+                <div class="table-responsive">
+                    <h3>Sign Up</h3>
+                    <hr>
+                    <!-- <div class="alert alert-info alert-dismissable">
+                      <a class="panel-close close" data-dismiss="alert">×</a>
+                      <i class="fa fa-coffee"></i>
+                      This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                    </div> -->
+                    <!-- <h3>Personal info</h3> -->
+
+                    <form class="form-horizontal personalInfo" role="form" id="signup" noalert="false" tourl="index.html" url="/group1/anonymous/signup" method='POST'>
+                        <input type="hidden" name="userStatus" value="ACTIVE">
+                        <input type="hidden" name="loginAttemptNumber" value="1">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" >User ID:</label>
+                                <a  href="#" title="Combination of alphabets and numbers">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>    
+                            <div class="col-lg-8">
+
+                                <input class="form-control" type="text" value="" name="userId" required>
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" >First Name:</label>
+                                <a  href="#" title="Alphabets only">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="" name="firstName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" >Last Name:</label>
+                                <a  href="#" title="Alphabets only">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="" required name="lastName" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">User Type:</label>
+                                <a  href="#" title="Which category do you belong to?">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-lg-8">
+                                <select class="form-control" id="userType" name="userRole" required>
+                                    <option value="MERCHANT">MERCHANT</option>
+                                   <!--   <option value="MANAGER">MANAGER</option>-->
+                                   <!--   <option value="EMPLOYEE">EMPLOYEE</option>-->
+                                   <!--   <option value="ADMIN">ADMIN</option>-->
+                                    <option value="CUSTOMER">CUSTOMER</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" >Address:</label>
+                                <a  href="#" title="Enter a valid address">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-lg-8">
+                                <textarea class="form-control" rows="5" id="comment" required name="address"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Phone number</label>
+                                <a  href="#" title="A valid phone number containing 10 digits only">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" name="phoneNumber" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Email:</label>
+                                <a  href="#" title="Enter a valid mail id">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" value="" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Password:</label>
+                                <a  href="#" title="Size should be a minimum of 6. Must contain all of these (a-z,0-9,Spl characters)">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" type="password" name="password" value="" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-md-3 control-label">Security Question 1:</label>
+                                <a  href="#" title="Enter your unique question">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" name="securityQn1" value="" required>
+                            </div>
+                            </div>
+                         <div class="form-group">
+                            <label class="col-md-3 control-label">Answer 1:</label>
+                                <a  href="#" title="Size of the answer should be a minimum of 6">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" type="password" name="securityAns1" value="" required>
+                            </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Security Question 2:</label>
+                                <a  href="#" title="Enter your unique question">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" name="securityQn2" type="text" value="">
+                            </div>
+                            </div>
+                         <div class="form-group">
+                            <label class="col-md-3 control-label">Answer 2:</label>
+                                <a  href="#" title="Size of the answer should be a minimum of 6">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" type="password" name="securityAns2" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group" id="orgDiv">
+                            <label class="col-md-3 control-label">Organization:</label>
+                                <a  href="#" title="Enter the organisation you belong to">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" id="org" name="organization" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">SSN:</label>
+                                <a  href="#" title="A valid SSN with a size of 9">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" type="password" name="ssn" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-md-3 control-label" for="date">
+                                Date of Birth
+                            </label>
+                                <a  href="#" title="A valid date of birth in the specified format">
+                                <img src="images/custom/question_mark.png" height="13px"/></a>
+                            <div class="col-md-8">
+                                <input class="form-control" id="date" name="dob" placeholder="YYYY-MM-DD" type="text" required>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <div class="g-recaptcha" data-sitekey="6LdxawoUAAAAAOQ4XltKxBND7ShRyqIz7xNKqCp4"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input type="submit" class="btn btn-primary" value="Sign Up" id="submit">
+                                <span></span>
+                                <input type="reset" class="btn btn-default" value="Cancel">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!--/row-->
+        </div><!--/.col-xs-12.col-sm-9-->
+
+        <!-- <div class="col-xs-6 col-sm-3 sidebar-offcanvas rightParentDiv" id="sidebar_internal_other"> -->
+
+            <!--/.sidebar-offcanvas-->
+        <!-- </div> -->
+        
+    </div><!--/.container-->
+    <footer>
+        <p>&copy; CSE Bank Group1 and contributors 2016.</p>
+    </footer>
+</body>
+<script>
+    internal_admin = false;
+    internal_other = false;
+    external = false;
+
+    $('#userType').on('change', function() {
+        if(this.value != 'MERCHANT') {
+            $("#orgDiv").hide();
+            $("#org").text("NONE");
+            $("#org").prop('required',false);
+        } else {
+            $("#orgDiv").show();
+            $("#org").text("");
+            $("#org").prop('required',true);
+        }
+      
+    });
+</script>
+</html>

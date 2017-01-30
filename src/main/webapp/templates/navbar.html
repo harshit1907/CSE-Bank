@@ -1,0 +1,37 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div style="text-align: left">
+                <img src="./images/custom/banklogo.png" style="height:50px;">
+            </div>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="#"><span class="glyphicon glyphicon-user"></span> {{userId}}
+                <div class="dropdown-content">
+                    <a href="PersonalInformation.html"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Update Information</a>
+                    <a id="logout" href="index.html"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;Sign Out</a>
+                </div></a></li>
+        </ul>
+    </div>
+</nav>
+<script>
+$('#logout').click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url : '/group1/logout',
+        type : 'POST',
+        data : "",
+        contentType: 'application/x-www-form-urlencoded',
+        success : function(data) {
+            redirecturl = 'index.html'
+            $(location).attr('href', redirecturl);
+            
+        },
+        error : function(request,error)
+        {
+            alert(error)
+        }
+    });
+    return false;  
+});
+</script>

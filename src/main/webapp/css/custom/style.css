@@ -1,0 +1,288 @@
+* {
+  margin:0;
+  padding:0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+body {
+  background:#C5C5C5 !important;
+}
+
+form {
+  position:relative;
+  /*width:360px;
+  height:250px;*/
+  margin:50px auto;
+  text-align:center;
+  background:grey;
+  padding:40px;
+  -webkit-border-radius:20px 0 0 0;
+     -moz-border-radius:20px 0 0 0;
+          border-radius:20px 0 0 0;
+  -webkit-box-shadow: 0px 1px 0px #ad392d, inset 0px 1px 0px white;
+     -moz-box-shadow: 0px 1px 0px #ad392d, inset 0px 1px 0px white;
+          box-shadow: 0px 1px 0px #ad392d, inset 0px 1px 0px white;
+  box-shadow: 20px 20px 20px;
+}
+
+.form-small .control-label {
+    width: 100px;
+}
+
+.form-small .controls {
+    margin-left: 120px;
+}
+
+.form-horizontal {
+    width: 40%;
+}
+
+h4 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:2em;
+  font-weight:300;
+  margin-bottom:25px;
+  color:#7f8c8d;
+}
+
+input {
+  display:block;
+  width:315px;
+  padding:16px;
+  -webkit-border-radius:6px;
+     -moz-border-radius:6px;
+          border-radius:6px;
+  border:0;
+  margin-bottom:12px;
+  color:#7f8c8d;
+  font-weight:600;
+  font-size:16px;
+}
+
+/* webkit solution */
+::-webkit-input-placeholder { text-align:center; }
+/* mozilla solution */
+input:-moz-placeholder { text-align:center; }
+
+input:focus {
+  background:#fafafa;
+}
+
+
+
+a, a:visited {
+  text-decoration:none;
+  color:black !important;
+  font-weight:400;
+  -webkit-transition: all .3s ease-in-out;
+     -moz-transition: all .3s ease-in-out;
+          transition: all .3s ease-in-out;
+}
+
+.button {
+  position:relative;
+  float:left;
+  width:145px;
+  margin-top:10px;
+  background:#3498db;
+  color:#fff;
+  font-weight:400;
+  text-shadow:1px 1px 0px #2d7baf;
+  box-shadow:0px 3px 0px #2d7baf;
+  -webkit-transition: all .3s ease-in-out;
+     -moz-transition: all .3s ease-in-out;
+          transition: all .3s ease-in-out;
+}
+
+.navbar-inverse {
+  background-color: #797979 !important;
+}
+
+.list-group-item {
+  background-color: #797979 !important;
+  color: white !important;
+}
+
+/*.rightParentDiv .list-group li.list-group-item:hover {
+  background-color: black !important;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+  background-color: black !important;
+  border-color: white !important;
+}
+*/
+.navbar-inverse .navbar-nav>li>a {
+  color: white !important;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse.navbar-nav > li > a:focus {
+    background-color: black !important;
+}
+
+.anchorDrop{
+  color: black;
+}
+
+.dropdown-menu-middle {
+    right: 50%;
+    left: 33% !important;
+}
+
+.container-fluid {
+  padding-left: 0px !important;
+}
+
+.loginButton {
+  padding: 2px 5px !important;   
+}
+
+.floatLeft {
+  float: left;
+}
+
+#option2{
+  position: relative;
+  padding-left: 10px;
+
+}
+#option1{
+  position: relative;
+
+}
+
+.control-label {
+  font-size: 18px;
+}
+
+.rightAnchor {
+  font-size: 15px;
+  position: relative;
+  top: 2px;
+}
+/*
+a {
+  color: white !important;
+}*/
+
+.rightAnchor:hover {
+  color: white !important;
+}
+
+.verticalLine {
+    border-left: solid #797979;
+}
+
+.horizontalLine{
+    border-top: solid #797979;
+}
+
+.landingLeftDivsFirst {
+  background-color: #797979;
+  color: white; 
+  height: 55px;
+  font-size: 22px
+}
+
+.landingLeftDivsSecond {
+  background-color: #797979; 
+  color: white; 
+  height: 18px;
+  font-size: 15px
+}
+
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    z-index:10;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.personalInfo {
+    width: 100%;
+}
+/*Changing the border color to black when active*/
+.list-group-item.active {
+  border-width: thick;
+  border-color: white !important;
+}
+
+.modal-dialog {
+    width: 800px !important;
+}
+
+.popForm {
+  width: 100%;
+}
+
+.noLeftPad {
+  padding-left: 0px !important;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

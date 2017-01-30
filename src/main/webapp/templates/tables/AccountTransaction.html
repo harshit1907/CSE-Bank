@@ -1,0 +1,23 @@
+<table id="myTable" class="display table" width="100%" style="padding: 0px;font-size: 18px;">
+    <thead>
+    <tr>
+        <tr>
+           <th>Date</th>
+           <th>Payment To Account</th>
+           <th>Status</th>
+           <th>Amount</th>
+       	</tr>
+    </tr>
+    </thead>
+    <tbody>
+    {{ #. }}
+    <tr>
+        
+        <td>{{ transTimestamp }}</td>
+        <td>{{ transDestAccNo }}</td>
+        <td>{{ transStatus }}</td>
+        <td>{{ transAmount }}</td>
+    </tr>
+    {{ /. }}
+    </tbody>
+</table>

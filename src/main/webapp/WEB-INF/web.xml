@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" 
+         version="2.5" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+          
+  <display-name>Archetype Created Web Application</display-name>
+       
+ 		
+ <servlet>  
+ <servlet-name>springrest</servlet-name>  
+ <servlet-class> 
+  org.springframework.web.servlet.DispatcherServlet  
+ </servlet-class>
+ <init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/springrest-servlet.xml</param-value>
+		</init-param>
+ <load-on-startup>1</load-on-startup>
+</servlet>
+  
+<servlet-mapping>  
+ <servlet-name>springrest</servlet-name>  
+ <url-pattern>/</url-pattern>  
+</servlet-mapping>
+
+	<!-- Spring Security -->
+ 
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+	    <listener-class>
+	        org.springframework.security.web.session.HttpSessionEventPublisher
+	    </listener-class>
+	</listener> 
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value> /WEB-INF/config/springrest-servlet-security.xml </param-value>
+		<!--  <param-value> csebank_authHelpers.asu.edu.WebSecurityConfig</param-value>-->
+		
+	</context-param>
+	<!-- 
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	</context-param> -->
+
+	<!-- filter implementation, spring -->
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		 
+		
+	</filter-mapping>	<!--
+	should know what it does 
+	    <dispatcher>ERROR</dispatcher>
+  		<dispatcher>REQUEST</dispatcher> -->
+  		<session-config>
+            <session-timeout>3</session-timeout>            
+            <tracking-mode>COOKIE</tracking-mode>
+        </session-config>
+</web-app>

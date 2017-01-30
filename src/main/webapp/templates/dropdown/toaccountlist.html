@@ -1,0 +1,9 @@
+<label class="control-label " for="select"> To: </label>
+<select class="select form-control" id="select" name="transDestAccNo" required>
+	<option value="">Select an account</option>
+	{{ #. }}
+	<option value="{{ accountId }}">{{ accountId }} - {{ accType }}</option>
+	{{ /. }}
+	<!-- <option selected="selected" value=""> -->
+	</option>
+</select>

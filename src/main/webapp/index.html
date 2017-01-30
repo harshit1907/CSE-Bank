@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/custom/style.css">
+    <link rel="stylesheet" href="css/custom/main.css">
+       <link rel="stylesheet" href="css/custom/jsKeyboard.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+    
+    <script src="js/custom/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="js/custom/common.js"></script>
+    <script src="js/custom/fingerprint2.min.js"></script>
+</head>
+<body>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div style="text-align: left">
+                <img src="images/custom/banklogo.png" style="height:50px;">
+            </div>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="SignUp.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#supportModal"><span class="glyphicon glyphicon-question-sign"></span> Questions?</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1></h1>
+    <div class="row text-center">
+        <img src="images/custom/bank.png">
+    </div>
+    <form class="form-horizontal" tourl="Landing.html" url="/group1/login" method='POST' noalert="true">
+        <h3> Secure Login </h3>
+        <div class="form-group">
+            <label for="nameField" class="control-label">Username:</label>
+            <div>
+                <input type="text" class="form-control" id="nameField" name="userId" placeholder="Enter Username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="pwd">Password:</label>
+            <div>
+                <input type="password" class="form-control" id="pwd" name="password" placeholder="Enter password">
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <button type="submit" class="btn btn-primary loginButton">
+                    <img src="images/lib/material-icons/core/lock-outline.svg" style="filter: invert(100%);">&nbsp;&nbsp;&nbsp;&nbsp;Log
+                    in
+                </button>
+            </div>
+        </div>
+
+        <!-- Added by Sidhant for Forgot Password Popup -->
+        <div>
+            <a href="SignUp.html">Not enrolled? Sign up now. ></a>
+            <div class="dropdown">
+                <a class="anchorDrop" data-toggle="dropdown">Log-in help options<span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-middle">
+                    <li><a href="#" data-toggle="modal" data-target="#myModal">Forgot password?</a></li>
+                    <!-- <li><a href="#">CSS</a></li> -->
+                </ul>
+            </div>
+        </div>
+        <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Forgot Password</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="username" class="col-sm-2 control-label">Username</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                        <button name="submitUsername" data-dismiss="modal" data-toggle="modal" data-target="#questionModal" type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+		
+		<!-- Modal -->
+          <div class="modal fade" id="questionModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Forgot Password</h4>
+                </div>
+                <div class="modal-body">
+	                  <div class="form-group">
+	                    <label for="username" class="col-sm-2 control-label">Question 1:</label>
+	                    <div class="col-sm-10">
+	                    	<input type="text" class="form-control" id="question1" name="question1" value="" readonly>
+	                        <input type="password" class="form-control" id="answer1" name="answer1" placeholder="Answer1" value="">
+	                    </div>
+	                  </div>
+	                  <div class="form-group">
+	                    <label for="username" class="col-sm-2 control-label">Question 2:</label>
+	                    <div class="col-sm-10">
+	                        <input type="text" class="form-control" id="question2" name="question2" value="" readonly>
+	                        <input type="password" class="form-control" id="answer2" name="answer2" placeholder="Answer2" value="">
+	                    </div>
+	                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                        <button id="submitAnswer" name="submitAnswer" data-dismiss="modal" data-toggle="modal" data-target="#myOTPModal" type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+		
+		
+		
+		<div class="modal fade" id="myOTPModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Enter OTP</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    
+                    <div id="wrap">
+					    <div class="spacer"></div>
+					    <div class="row">
+							<div class="col-md-3"><label for="otpValue" class="control-label">OTP</label></div>
+							<div class="col-md-9"><input id="otpValue" class="input" name="otpValue" type="password" placeholder="OTP"></div>					    
+					    </div>
+					    <div class="row">
+							<div class="col-md-3"><label for="newPass" class="control-label">New Password</label></div>
+							<div class="col-md-9"><input id="newPass" class="input" name="newPass" type="password" placeholder="New Password"></div>					    
+					    </div>
+					    <div class="row">
+							<div class="col-md-3"><label for="confPass" class="control-label">Confirm Password</label></div>
+							<div class="col-md-9"><input id="confPass" class="input" name="confPass" type="password" placeholder="Confirm Password"></div>					    
+					    </div>
+                    </div>
+                    <div id="virtualKeyboard"></div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                    	<button id="submitOTP" name="submitOTP" data-dismiss="modal" type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+			
+			
+		<div class="modal fade" id="supportModal" role="dialog">
+         <div class="modal-dialog">
+             <!-- Modal content-->
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h3 class="modal-title">Contact Helpdesk Support: <a href="mailto:mihir.thakkar@asu.edu">Mihir Thakkar</a> for help.</h3>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+             </div>
+          </div>
+         </div>
+    </form>
+</div>
+<script type="text/javascript" src="js/custom/jsKeyboard.js"></script>
+<script src="js/custom/main.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		jsKeyboard.changeToNumber();
+	});
+	
+	$("button[name^='submitUsername']" ).click(function() {
+		var inputText = $("#username").val();
+	    console.log(inputText)
+	    $.ajax({
+	       url : '/group1/anonymous/getsecurityqn/'+inputText,
+	       type :'GET',
+	       contentType: 'application/json',
+	       success : function(data) {
+	           var securityQ1 = data['securityQn1'];
+	           var securityQ2 = data['securityQn2'];
+	           $("#question1").attr("value", securityQ1);
+	           $("#question2").attr("value", securityQ2);
+	           
+	           //$("#question1").
+	       },
+	       error : function(jqXHR, textStatus, errorThrown) {
+	           alert("Some problem detected while deleting")
+	           console.log(jqXHR)
+	       }
+	   });
+	})
+		
+	$("button[name^='submitAnswer']" ).click(function() {
+		var inputText = $("#username").val();
+	    console.log(inputText);
+	    var answer1 = $("#answer1").val();
+	    var answer2 = $("#answer2").val();
+	    var data = '{"userId":"' + inputText + '", "securityAns1":"'+answer1+'", "securityAns2": "'+ answer2 + '" }';
+	    console.log(data);
+	    //debugger
+	    $.ajax({
+	       url : '/group1/anonymous/sendOtp/',
+	       type :'POST',
+	       data: data,
+	       contentType: 'application/json',
+	       success : function(data) {
+	    	   //alert(data);
+	    	   console.log("this");
+	           console.log(data);
+	           //$("#question1").
+	       },
+	       error : function(jqXHR, textStatus, errorThrown) {
+	           alert("Some problem detected while deleting")
+	           console.log(jqXHR)
+	       }
+	   });
+	})
+	
+	$("button[name^='submitOTP']" ).click(function() {
+		var inputText = $("#username").val();
+	    console.log(inputText);
+	    var otpValue = $("#otpValue").val();
+	    var newPassword = $("#newPass").val();
+	    var confPassword = $("#confPass").val();
+	    var data = '{"userId":"' + inputText + '", "otp":"'+otpValue+'", "password": "'+ newPassword+'", "confirm_password": "'+ confPassword + '" }';
+	    console.log(data);
+	    //debugger
+	    $.ajax({
+	       url : '/group1/anonymous/otpAndNewPassword/',
+	       type :'POST',
+	       data: data,
+	       contentType: 'application/json',
+	       success : function(data) {
+	    	   //alert(data);
+	    	   console.log("this");
+	           console.log(data);
+	           //$("#question1").
+	       },
+	       error : function(jqXHR, textStatus, errorThrown) {
+	           alert("Some problem detected while deleting")
+	           console.log(jqXHR)
+	       }
+	   });
+	})
+</script>
+</body>
+</html>

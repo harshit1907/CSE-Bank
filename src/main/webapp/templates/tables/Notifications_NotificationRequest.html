@@ -1,0 +1,22 @@
+<table id="myTable" class="display table" width="100%">
+   <thead>
+      <tr>
+         <th>Requester</th>
+         <th>Description</th>
+         <th>&nbsp;</th>
+      </tr>
+   </thead>
+   <tbody>
+      {{ #. }}
+      <tr>
+         <td id="myUserId_{{kycid}}"> {{ userId }}</td>
+         <td id="myFieldId_{{kycid}}"> {{ userFieldId }}::{{ fieldValue }}  </td>
+         <td>
+            <button onclick="updateKYC('APPROVED', {{kycid}})" type="button" class="btn btn-success">Authorize</button>
+            <button onclick="updateKYC('REJECTED', {{kycid}})" type="button" class="btn btn-danger">Decline</button>
+         </td>
+      </tr>
+      
+      {{ /. }}
+   </tbody>
+</table>

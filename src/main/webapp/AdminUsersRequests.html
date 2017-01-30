@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Internal Users Requests</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/custom/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script>
+    <script src="js/custom/common.js"></script>
+    <script src="js/custom/nameboard.js"></script>
+    <script src="js/custom/notificationMustache.js"></script>
+</head>
+
+<body>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<!-- Header -->
+
+<div id="navbarspace">
+
+</div>
+
+<div class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+            <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron" id="nameboard">
+                
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <h4>Check what Internal Users want...</h4>
+                    <div class="table-responsive" id="notificationRequest">
+	                    <!--Mustache by Sid -->
+	                </div>
+                </div>
+            </div><!--/row-->
+        </div><!--/.col-xs-12.col-sm-9-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas rightParentDiv" id="sidebar_internal_admin">
+
+            <!--/.sidebar-offcanvas-->
+        </div><!--/row-->
+        <hr>
+    </div><!--/.container-->
+    <footer>
+        <p>&copy; CSE Bank Group1 and contributors 2016.</p>
+    </footer>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#myTable').dataTable();
+        $("#myTable_length").hide();
+        $("#myTable_filter").hide();
+    });
+    var template_details = {
+        admin_internal_requests_active : "active"
+    }
+    var internal_admin = false
+    var internal_other = false
+    var external = false
+    var internal_admin = true
+</script>
+</html>
